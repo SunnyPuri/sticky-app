@@ -130,11 +130,13 @@
                                         <li role="menuitem" ng-click="copyNote(note._id)"><a href="#">Make a Copy</a></li>
                                     </ul>
                                 </span>
-                                <i class="fa fa-pencil" uib-tooltip="Save" tooltip-placement="bottom" style="float: right" ng-click="note.edit = !note.edit"></i>
+                                <i class="fa fa-pencil" uib-tooltip="Edit" tooltip-placement="bottom" style="float: right;padding: 0;" ng-click="note.edit = true" ng-if="!note.edit"></i>
+                                <div class="doneBtn" ng-if="note.edit" ng-click="note.edit = false" style="right: 0;">Done</div>
                             </div>
                             
                         </div>
-                        <time class="noteTime" am-time-ago="note.date"></time> 
+                        <time class="noteTime" am-time-ago="note.date" ng-if="!note.edit"></time>
+                        <div class="noteTime" ng-if="note.edit" ng-click="note.edit = false" style="right: 0;text-transform: uppercase;cursor: pointer;">Done</div>
                     </div>
                   </div>
                 
