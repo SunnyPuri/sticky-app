@@ -1,0 +1,284 @@
+
+body{
+    background: #f1f1f1;
+}
+
+.text{
+    padding: 12px 15px 15px 15px;
+    color: rgba(0,0,0,.54);
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+}
+
+.noteHeader .text{
+    font-weight: 600;
+}
+
+.addNote{
+    font-family: 'Roboto Condensed',arial,sans-serif;
+    font-size: 14px;
+    line-height: 19px;
+    min-height: 46px;
+    padding: 12px 15px 15px 15px;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.addTitle{
+    font-family: 'Roboto Condensed',arial,sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    line-height: 19px;
+    font-weight: 600;
+    min-height: 30px;
+    padding: 12px 15px 15px 15px;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.addNoteFooter{
+    outline: none;
+    position: relative;
+    padding: 12px 15px 15px 15px;
+}
+
+
+.doneBtn{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    color: rgba(0,0,0,.87);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+
+.addNoteFooter .fa{
+    padding: 0px 15px 0px 0px;
+    opacity: .8;
+    font-size: 15px;
+}
+
+
+
+.noteContainer{
+    margin-top: 40px;
+    padding: 0px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.20);
+    background-color: rgb(250, 250, 250);
+}
+
+.editNoteContainer{
+    margin: 10px;
+    padding: 0px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.20);
+    background-color: rgb(250, 250, 250);
+}
+
+.editNoteContainer:hover{
+    -webkit-box-shadow: 0px 0px 11px 4px rgba(204,204,204,1);
+    -moz-box-shadow: 0px 0px 11px 4px rgba(204,204,204,1);
+    box-shadow: 0px 0px 11px 4px rgba(204,204,204,1);
+    transition: all .5s;
+}
+
+.editNoteFooter{
+    opacity: 0;
+}
+
+.editNoteContainer:hover .editNoteFooter{
+    opacity: 1;
+}
+
+.noteTime{
+    /*opacity: 1;*/
+    display: block;
+}
+
+.editNoteContainer:hover .noteTime{
+    /*opacity: 0;*/
+    display: none;
+}
+
+.menu{
+    float: right;
+    top: 10px;
+    right: 15px;
+    font-size: 19px;
+    position: relative;
+}
+
+.menu .fa{
+    padding: 0px 15px;
+    opacity: .8;
+}
+
+.editMenu{
+    float: right;
+    top: 8px;
+    right: 0px;
+    font-size: 18px;
+    position: relative;
+}
+
+.editMenu .fa{
+    padding: 0px 15px;
+    opacity: .8;
+}
+
+
+.editMenu{
+    opacity: 0;
+}
+
+.editNoteContainer:hover .editMenu{
+    opacity: 1;
+}
+
+
+@media (min-width: 992px){
+    .col-md-3 {
+        width: 23% !important;
+    }
+}
+
+
+.skin-switch {
+  padding: 15px 0 8px;
+  text-align: center;
+}
+
+.ss-skin {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px 5px;
+    border: 1px solid grey;
+    position: relative;
+}
+
+.ss-skin:hover {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.skin-switch .fa{
+    padding: 0;
+}
+
+.skin-switch .check{
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.addNoteFooter .skin-switch .check{
+    position: absolute;
+    top: 3px;
+    left: 2px;
+}
+
+.menu i{
+    cursor: pointer;
+}
+
+.noteFooter i{
+    cursor: pointer;
+}
+
+.editMenu i{
+    cursor: pointer;
+}
+
+.editNoteFooter i{
+    cursor: pointer;
+}
+
+.noteTime {
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    color: rgba(0,0,0,.87);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 14px;
+}
+
+.highlighted{
+    color: red;
+    font-weight: bold;
+}
+
+
+/* ============================== */
+
+
+.wrapper {
+    width: 95%;
+    margin: 3em auto;
+}
+
+.masonry {
+    margin: 1.5em 0;
+    padding: 0;
+    -moz-column-gap: 1.5em;
+    -webkit-column-gap: 1.5em;
+    column-gap: 1.5em;
+    font-size: .85em;
+}
+
+.item {
+    display: inline-block;
+    background: #fff;
+    padding: 1em;
+    margin: 0 0 1.5em;
+    width: 100%;
+}
+
+@media only screen and (min-width: 400px) {
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .masonry {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .masonry {
+        -moz-column-count: 5;
+        -webkit-column-count: 5;
+        column-count: 5;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .wrapper {
+        width: 1260px;
+    }
+}
+
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sticky App</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/loading-bar.css" rel="stylesheet" />
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="app.css" rel="stylesheet" />
+       
+      
+  </head>
+  <body ng-controller="mainController">
+    
+      <div class="container-fluid">
+          
+          <div class="col-md-6 col-md-offset-3 noteContainer" outside-click="addNote()" style="background: {{currentSkin}}" ng-show="!togglePanel">
+            
+            <div class="noteHeader" ng-show="hideMe">
+                <div class="text" ng-show="title.length==0">Title</div>  
+                <div contenteditable="true" class="addTitle" ng-model="title"></div>
+            </div>
+            
+            <div class="noteBody">
+                <div class="menu" ng-show="!hideMe">
+                    <span uib-dropdown>
+                        <i id="btn-append-to-body" class="fa fa-paint-brush"  uib-dropdown-toggle></i>
+                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                        <li class="skin-switch">
+                            <span ng-repeat="w in skinList" class="ss-skin" style="background: {{w}}" data-ng-click="skinSwitch(w)">
+                                <i class="fa fa-check check" ng-if="w == currentSkin"></i>
+                            </span>
+                        </li>
+                      </ul>
+                    </span>
+                    
+                    <i class="fa fa-search" uib-tooltip="Search" ng-click="togglePanel=!togglePanel"></i>
+                    
+                </div>
+                <div class="text" ng-show="description.length==0">Add a Note..</div>
+                <div contenteditable="true" class="addNote" ng-model="description" ng-focus="hideMe=true"></div>
+            </div>
+            
+            <div class="noteFooter" ng-show="hideMe">
+                <div class="addNoteFooter">
+                    
+                    <span uib-dropdown>
+                        <i id="btn-append-to-body" class="fa fa-paint-brush"  uib-dropdown-toggle></i>
+                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                        <li class="skin-switch">
+                            <span ng-repeat="w in skinList" class="ss-skin" style="background: {{w}}" data-ng-click="skinSwitch(w)">
+                                <i class="fa fa-check check" ng-if="w == currentSkin"></i>
+                            </span>
+                        </li>
+                      </ul>
+                    </span>
+                    
+                    <div class="doneBtn" ng-click="addNote()">Done</div>
+                </div>  
+            </div>
+            
+          </div>
+          
+          
+          <div class="col-md-6 col-md-offset-3 noteContainer" style="background: {{currentSkin}}" ng-show="togglePanel">
+            
+              <div class="noteBody">
+                <div class="menu">
+                    <i class="fa fa-pencil" uib-tooltip="Note" ng-click="togglePanel=!togglePanel"></i>
+                </div>
+                <div class="text" ng-show="search.length==0">Search..</div>
+                <div contenteditable="true" class="addNote" ng-model="search"></div>
+              </div>
+            
+          </div>
+          
+          
+      </div>
+              
+      <div class="col-md-12" style="display: flex;justify-content: center;">
+        <div class="skin-switch" ng-show="!hideMe" style="margin-top: 10px;">
+            <span ng-repeat="w in filterSkinList" class="ss-skin" style="background: {{w.color}}" data-ng-click="filterSkinSwitch(w.color)">
+                <i class="fa fa-check check" ng-if="currentFilterSkin.indexOf(w.color)!=-1"></i>
+            </span>
+        </div>
+      </div>
+      
+      <div class="container-fluid" style="margin-top: 10px;">
+        
+            <div class="sortable-container grid" sv-root sv-part="notes">
+            <div class="sortable-container grid">
+                <div class="col-md-3 editNoteContainer" sv-element="opts" ng-repeat="note in notes | filterNotes:currentFilterSkin | filter: searchNote" style="background: {{note.color}}">
+                <!-- <div class="col-md-3 editNoteContainer" ng-repeat="note in notes | filter:{ color: currentFilterSkin } | filter: searchNote" style="background: {{note.color}}"> -->
+                    <div sv-handle>
+                        <div class="noteHeader">
+                            <div class="editMenu">
+                                <i ng-click="deleteNote(note._id)" class="fa fa-trash"></i>
+                            </div>
+                            <div class="addTitle" contenteditable="true" ng-model="note.title" ng-show="note.edit"></div>
+                            <div class="addTitle" ng-bind-html="note.title | highlight:search" ng-show="!note.edit"></div>
+                        </div>
+
+                        <div class="noteBody">
+                            <div class="addNote" contenteditable="true" ng-model="note.description" ng-show="note.edit"></div>
+                            <div class="addNote" ng-bind-html="note.description | highlight:search" ng-show="!note.edit"></div>
+                        </div>
+                        <div class="editNoteFooter">
+                            <div class="addNoteFooter">
+                                <span uib-dropdown>
+                                    <i id="btn-append-to-body" class="fa fa-paint-brush"  uib-dropdown-toggle></i>
+                                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                                    <li class="skin-switch">
+                                        <span ng-repeat="w in skinList" class="ss-skin" style="background: {{w}}" data-ng-click="editSkinSwitch(w, note._id)">
+                                            <i class="fa fa-check check" ng-if="w == note.color"></i>
+                                        </span>
+                                    </li>
+                                  </ul>
+                                </span>
+
+                                <span uib-dropdown>
+                                    <i id="btn-append-to-body" class="fa fa-ellipsis-v"  uib-dropdown-toggle></i>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                                        <li role="menuitem" ng-click="copyNote(note._id)"><a href="#">Make a Copy</a></li>
+                                    </ul>
+                                </span>
+                                <i class="fa fa-pencil" uib-tooltip="Save" tooltip-placement="bottom" style="float: right" ng-click="note.edit = !note.edit"></i>
+                            </div>
+                            
+                        </div>
+                        <time class="noteTime" am-time-ago="note.date"></time> 
+                    </div>
+                  </div>
+                
+            </div>
+          
+        </div>
+    
+        
+      
+      
+      
+      
+      
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-sanitize.js"></script>
+    <script src="js/angular-sortable-view.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="js/loading-bar.js"></script>
+    <!-- load momentJS (required for angular-moment) -->
+    <script src="js/moment.min.js"></script>
+      
+     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- load angular-moment -->
+    <script src="js/angular-moment.min.js"></script>
+    <script src="app.js"></script>
+    <script src="app/controller/app.controller.js"></script>
+    <script src="app/directive/app.directive.js"></script>
+    <script src="app/service/app.service.js"></script>
+    <script src="app/filter/app.filter.js"></script>
+  </body>
+</html>

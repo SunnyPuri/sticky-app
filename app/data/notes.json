@@ -1,0 +1,29 @@
+[
+    {
+        "_id": 0,
+        "color": "#fff",
+        "description": "test",
+        "title": "",
+        "date": "2018-05-05T18:59:21.312Z",
+        "isDeleted": false,
+        "edit": false
+    },
+    {
+        "_id": 1,
+        "color": "#fff",
+        "description": "test",
+        "title": "",
+        "date": "2018-05-05T18:59:21.312Z",
+        "isDeleted": false,
+        "edit": false
+    },
+    {
+        "_id": 2,
+        "color": "#fff",
+        "description": "test",
+        "title": "",
+        "date": "2018-05-05T18:59:21.312Z",
+        "isDeleted": false,
+        "edit": false
+    }
+]
